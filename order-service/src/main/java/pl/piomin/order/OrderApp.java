@@ -72,10 +72,10 @@ public class OrderApp {
                 .stream("payment-orders", Consumed.with(Serdes.Long(), orderSerde));
 
         stream.join(
-                        builder.stream("stock-orders"),
-                        orderManageService::confirm,
-                        JoinWindows.of(Duration.ofSeconds(10)),
-                        StreamJoined.with(Serdes.Long(), orderSerde, orderSerde))
+                builder.stream("stock-orders"),
+                orderManageService::confirm,
+                JoinWindows.of(Duration.ofSeconds(10)),
+                StreamJoined.with(Serdes.Long(), orderSerde, orderSerde))
                 .peek((k, o) -> LOG.info("Output: {}", o))
                 .to("orders");
 

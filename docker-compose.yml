@@ -8,7 +8,7 @@ services:
     environment:
       - KRAFT_CONTAINER_HOST_NAME=broker
   order-service:
-    image: sample-spring-kafka-microservices/order-service:1.0-SNAPSHOT
+    image: order-service:v1
     ports:
       - "8080"
     links:
@@ -16,13 +16,13 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: docker
   payment-service:
-    image: sample-spring-kafka-microservices/payment-service:1.0-SNAPSHOT
+    image: payment-service:v1
     links:
       - broker
     environment:
       SPRING_PROFILES_ACTIVE: docker
   stock-service:
-    image: sample-spring-kafka-microservices/stock-service:1.0-SNAPSHOT
+    image: stock-service:v1
     links:
       - broker
     environment:
